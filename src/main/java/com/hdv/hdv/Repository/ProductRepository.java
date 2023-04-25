@@ -20,4 +20,6 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
     @Transactional
     @Query(value = "DELETE FROM Product WHERE id = :id")
     void deleteProductById(@Param("id") int id);
+
+
 }

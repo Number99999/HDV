@@ -4,15 +4,13 @@ import com.hdv.hdv.Entity.Product;
 import com.hdv.hdv.Service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/product")
-public class HomeController {
+public class ProductController {
     @Autowired
     ProductService productService;
 
@@ -34,7 +32,7 @@ public class HomeController {
     }
 
     @DeleteMapping("delete/{id}")
-    public ResponseEntity deleteProduct(@PathVariable String id) {
+    public ResponseEntity<Long> deleteProduct(@PathVariable String id) {
         productService.deleteProductByID(id);
         return ResponseEntity.ok().build();
     }

@@ -12,6 +12,8 @@ public class User {
     @Column(name = "username")
     private String username;
 
+    @Column(name = "image")
+    private String img;
     @Column(name = "password")
     private String password;
 
@@ -23,6 +25,9 @@ public class User {
 
     @Column(name = "email")
     private String email;
+
+    @Column(name = "admin")
+    private boolean admin;
 
     public User() {
     }
