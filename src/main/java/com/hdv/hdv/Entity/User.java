@@ -1,6 +1,7 @@
 package com.hdv.hdv.Entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 
 @Entity
 @Table(name = "users")
@@ -9,24 +10,19 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "username")
     private String username;
+    private String password;
+
 
     @Column(name = "image")
     private String img;
-    @Column(name = "password")
-    private String password;
 
-    @Column(name = "phone")
     private String phone;
 
-    @Column(name = "address")
-    private String add;
+    private String address;
 
-    @Column(name = "email")
+    @Email
     private String email;
-
-    @Column(name = "admin")
     private boolean admin;
 
     public User() {
@@ -36,7 +32,7 @@ public class User {
         this.username = username;
         this.password = password;
         this.phone = phone;
-        this.add = add;
+        this.address = add;
         this.email = email;
     }
 
@@ -65,11 +61,11 @@ public class User {
     }
 
     public String getAdd() {
-        return add;
+        return address;
     }
 
     public void setAdd(String add) {
-        this.add = add;
+        this.address = add;
     }
 
     public String getEmail() {

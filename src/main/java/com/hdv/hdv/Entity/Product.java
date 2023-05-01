@@ -15,33 +15,26 @@ public class Product {
     @Id
     @GeneratedValue
     int id;
-    @Column
     String name;
-    @Column
+    @Column(name = "image")
     String img;
-    @Column
     String description;
-    @Column
     String size;
-    @Column
     float price;
-    @Column
-    String category;
-    @Column
+
     String brand;
-    @Column
+
     int quantity;
 
     public Product() {
     }
 
-    public Product(String name, String img, String description, String size, float price, String category, String brand, int quantity) {
+    public Product(String name, String img, String description, String size, float price, String brand, int quantity) {
         this.name = name;
         this.img = img;
         this.description = description;
         this.size = size;
         this.price = price;
-        this.category = category;
         this.brand = brand;
         this.quantity = quantity;
     }
@@ -98,14 +91,6 @@ public class Product {
 
     public void setPrice(float price) {
         this.price = price;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     public String getBrand() {
