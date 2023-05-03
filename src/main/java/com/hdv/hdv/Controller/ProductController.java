@@ -22,9 +22,8 @@ public class ProductController {
     }
 
     @GetMapping("showProduct")
-    public Product ProductshowALl() {
-        List<Product> list = this.productService.getAllProduct();
-        return list.get(0);
+    public List<Product> ProductshowALl() {
+        return this.productService.getAllProduct();
     }
 
 //    @GetMapping("showProductByCate/{category}")
