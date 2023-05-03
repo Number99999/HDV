@@ -1,8 +1,6 @@
 package com.hdv.hdv.Controller;
 
-import com.hdv.hdv.Entity.Category;
 import com.hdv.hdv.Entity.Product;
-import com.hdv.hdv.Service.CategoryService;
 import com.hdv.hdv.Service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,8 +14,7 @@ import java.util.List;
 public class ProductController {
     @Autowired
     ProductService productService;
-    @Autowired
-    CategoryService categoryService;
+
 
     @GetMapping("/hello")
     public String hello() {
