@@ -14,10 +14,13 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     void deleteById(String id);
 
-    Product findProductById(String id);
+    Product findProductById(int id);
 
-    @Query("select p.id, p.product_id, p.product_category, p.product_name, p.availability, p.price, p.image from Product p where product_name = :name")
+    @Query("select p.id, p.product_id, p.product_category, p.product_name, p.availability, p.price, p.image from Product p where p.product_name = :name")
     Product findProductByProduct_name(@Param("name") String name);
+
+    @Query("select p.id, p.product_id, p.product_category, p.product_name, p.availability, p.price, p.image from Product p where p.product_category = :cate")
+    List<Product> findProductByCategory(@Param("cate") String cate);
 
     @Modifying
     @Transactional

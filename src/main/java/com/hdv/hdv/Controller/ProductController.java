@@ -26,14 +26,19 @@ public class ProductController {
         return this.productService.getAllProduct();
     }
 
-//    @GetMapping("showProductByCate/{category}")
-//    public List<Product> showProductByCate(@PathVariable String category) {
-//        return this.productService.getProductByCategory(category);
-//    }
+    @GetMapping("getproduct/{id}")
+    public Product showProductById(@PathVariable int id) {
+        return this.productService.getProductById(id);
+    }
+
+    @GetMapping("showProductByCate/{category}")
+    public List<Product> showProductByCate(@PathVariable String category) {
+        return this.productService.getProductByCategory(category);
+    }
+
     @DeleteMapping("delete/{id}")
-    public ResponseEntity<Long> deleteProduct(@PathVariable String id) {
-        productService.deleteProductByID(Integer.parseInt(id));
-        Product product = productService.getProductById(id);
+    public ResponseEntity<Long> deleteProduct(@PathVariable int id) {
+        productService.deleteProductByID(id);
         return ResponseEntity.ok().build();
     }
 
@@ -44,8 +49,7 @@ public class ProductController {
     }
 
     @PutMapping("update/{id}")
-    public ResponseEntity<String> updateProduct (@PathVariable("id") String id, @RequestBody Product product )
-    {
+    public ResponseEntity<String> updateProduct(@PathVariable("id") int id, @RequestBody Product product) {
         try {
             Product oldPro = this.productService.getProductById(id);
             oldPro.setId(product.getId());
@@ -63,5 +67,6 @@ public class ProductController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating the product");
         }
     }
+
 
 }
