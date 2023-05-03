@@ -12,17 +12,22 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findAll();
 
-    @Override
-    void deleteById(Long id);
+    void deleteById(String id);
 
-    Product findProductById(Long id);
+    Product findProductById(String id);
 
-    Product findProductByName(String name);
+    @Query("select p.id, p.product_id, p.product_category, p.product_name, p.availability, p.price, p.image from Product p where product_name = :name")
+    Product findProductByProduct_name(@Param("name") String name);
 
     @Modifying
     @Transactional
     @Query(value = "DELETE FROM Product WHERE id = :id")
     void deleteProductById(@Param("id") int id);
 
-//    @Query("select * from product join cart on product.category = and cart.")
+//    void deleteProductByProductId(@Param("id") String id);
+
+
+//    @Query("select product.* from product  join category on  product.id = category.id_product and category.name = :cate group by id_product")
+//@Query("select p.id, p.name, p.image, p.description, p.size, p.price, p.brand, p.quantity from Product p join Category c on p.id = c.name_product and c.name = :cate group by name_product")
+//List<Product> getAllProductByCategory(@Param("cate") String cate);
 }

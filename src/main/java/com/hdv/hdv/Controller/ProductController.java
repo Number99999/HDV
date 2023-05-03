@@ -5,6 +5,7 @@ import com.hdv.hdv.Entity.Product;
 import com.hdv.hdv.Service.CategoryService;
 import com.hdv.hdv.Service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,34 +30,42 @@ public class ProductController {
         return list.get(0);
     }
 
-    @GetMapping("add")
-    public void addProduct() {
-        try{
-            Category cate = new Category();
-            cate.setName_product("duong");
-            cate.setName("con nguoi");
-            this.categoryService.addCate(cate);
-            Product p = new Product("duong", "duong", "duong", "duong", 10, "Duong", 10);
-            productService.addProduct(p);}
-        catch (Exception e)
-        {
-            System.out.println(e);
-        }
-    }
-
+//    @GetMapping("showProductByCate/{category}")
+//    public List<Product> showProductByCate(@PathVariable String category) {
+//        return this.productService.getProductByCategory(category);
+//    }
     @DeleteMapping("delete/{id}")
     public ResponseEntity<Long> deleteProduct(@PathVariable String id) {
-        productService.deleteProductByID(id);
-        Product product = productService.getProductById(Integer.parseInt(id));
+        productService.deleteProductByID(Integer.parseInt(id));
+        Product product = productService.getProductById(id);
         return ResponseEntity.ok().build();
     }
 
-//        try {
-//            productService.deleteProductByID(id);
-//            return "Done";
-//        } catch (Exception e) {
-//            return "false" + e;
-//        }
-//    }
+    @PostMapping("add")
+    public ResponseEntity<Product> addProduct(@RequestBody Product product) {
+        this.productService.addProduct(product);
+        return new ResponseEntity<>(product, HttpStatus.CREATED);
+    }
+
+    @PutMapping("update/{id}")
+    public ResponseEntity<String> updateProduct (@PathVariable("id") String id, @RequestBody Product product )
+    {
+        try {
+            Product oldPro = this.productService.getProductById(id);
+            oldPro.setId(product.getId());
+            oldPro.setAvailability(product.getAvailability());
+            oldPro.setProduct_id(product.getProduct_id());
+            oldPro.setProduct_name(product.getProduct_name());
+            oldPro.setProduct_category(product.getProduct_category());
+            oldPro.setPrice(product.getPrice());
+            oldPro.setImage(product.getImage());
+
+            this.productService.deleteProductByID(product.getId());
+            this.productService.addProduct(product);
+            return ResponseEntity.ok("Updated successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating the product");
+        }
+    }
 
 }

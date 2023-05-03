@@ -15,23 +15,27 @@ public class ProductService {
     public List<Product> getAllProduct() {
         return productRepository.findAll();
     }
+    public Product getProductById(String id) {
+        return productRepository.findProductById(id);
+    }
 
     public void addProduct(Product product) {
         productRepository.save(product);
     }
 
-    public void deleteProductByID(String id) {
-        productRepository.deleteProductById(Integer.parseInt(id));
+    public void deleteProductByID(int id) {
+        productRepository.deleteProductById(id);
 //        productRepository.deleteById(Long.parseLong(id));
     }
 
-    public Product getProductById(int id)
-    {
-        return productRepository.findProductById((long) id);
-    }
 
     public Product getProductByName(String name)
     {
-        return productRepository.findProductByName(name);
+        return productRepository.findProductByProduct_name(name);
     }
+
+//    public List<Product> getProductByCategory(String category)
+//    {
+//        return productRepository.getAllProductByCategory(category);
+//    }
 }

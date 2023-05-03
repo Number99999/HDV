@@ -1,12 +1,6 @@
 package com.hdv.hdv.Entity;
 
-import lombok.Data;
-import org.jetbrains.annotations.NotNull;
-
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 @Entity
 @Table
@@ -15,97 +9,79 @@ public class Product {
     @Id
     @GeneratedValue
     int id;
-    String name;
-    @Column(name = "image")
-    String img;
-    String description;
-    String size;
-    float price;
 
-    String brand;
-
-    int quantity;
+    String product_id;
+    String product_category;
+    String product_name;
+    String availability;
+    String price;
+    String image;
 
     public Product() {
     }
 
-    public Product(String name, String img, String description, String size, float price, String brand, int quantity) {
-        this.name = name;
-        this.img = img;
-        this.description = description;
-        this.size = size;
+    public Product(String product_id, String product_category, String product_name, String availability, String price, String image) {
+        this.product_id = product_id;
+        this.product_category = product_category;
+        this.product_name = product_name;
+        this.availability = availability;
         this.price = price;
-        this.brand = brand;
-        this.quantity = quantity;
+        this.image = image;
     }
 
-    public ArrayList<String> getImg(){
-        ArrayList<String> image = new ArrayList<>();
-        String im[] = this.img.split(";");
-        for(String i: im)
-            image.add(i);
-        return image;
+    public int getId() {
+        return id;
     }
 
-    public void setImg(ArrayList<String> img1)
-    {
-        String s = img1.get(0);
-        for(int i=1; i<img1.size(); i++) s+=";" + img1.get(i);
-        this.img = s;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public ArrayList<Integer> getSize(){
-        ArrayList<Integer> sizeList = new ArrayList<>();
-        String si[] = this.size.split(";");
-        for(String i: si)
-            sizeList.add(Integer.parseInt(i));
-        return sizeList;
+    public String getProduct_id() {
+        return product_id;
     }
 
-    public void setSize(ArrayList<Integer> list){
-        String s = String.valueOf(list.get(0));
-        for(int i=1; i<list.size(); i++) s+=";" + list.get(i);
-        this.size = s;
+    public void setProduct_id(String product_id) {
+        this.product_id = product_id;
     }
 
-
-    public String getName() {
-        return name;
+    public String getProduct_category() {
+        return product_category;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProduct_category(String product_category) {
+        this.product_category = product_category;
     }
 
-    public String getDescription() {
-        return description;
+    public String getProduct_name() {
+        return product_name;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setProduct_name(String product_name) {
+        this.product_name = product_name;
     }
 
-    public float getPrice() {
+    public String getAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(String availability) {
+        this.availability = availability;
+    }
+
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
-    public String getBrand() {
-        return brand;
+    public String getImage() {
+        return image;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setImage(String image) {
+        this.image = image;
     }
 }
