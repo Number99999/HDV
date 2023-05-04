@@ -61,6 +61,9 @@
         }
 
 
+
+
+
     </style>
 
 </head>
@@ -73,24 +76,28 @@
     <table id="table1">
         <tr>
             <th>Mã mặt hàng</th>
+            <th>Ảnh</th>
             <th>Tên mặt hàng</th>
-            <th>Giá nhập</th>
+            <th>Phân loại</th>
             <th>Giá bán</th>
-            <th>Loại</th>
+            <th>Tình trạng</th>
             <th>Thao tác</th>
         </tr>
-        <!--            <tr tr th:each="product : ${products}">-->
-        <td th:text="${product.id}"></td>
-        <!--                <td th:text="${product.product_name}"></td>-->
-        <!--                <td th:text="${product.product_category}"></td>-->
-        <!--                <td th:text="${product.price}"></td>-->
-        <!--                <td th:text="${product.loai}"></td>-->
-        <td>
-            <a class="button" href="<c:url value='/edit?action=update&productCode=${product.ma}'/>">Sửa</a>
-            <a class="button" href="<c:url value='/delete?productCode=${product.ma}'/>">Xóa</a>
-        </td>
+        <tr th:each="product : ${listProduct}">
+            <td th:text="${product.id}"></td>
+            <td>
+                <img src="${product.image}" width="100" height="100">
+                ${product.image}
+            </td>
+            <td th:text="${product.product_name}"></td>
+            <td th:text="${product.product_category}"></td>
+            <td th:text="${product.availability}"></td>
+            <td th:text="${product.price}"></td>
+            <td>
+                <a class="button" href="<c:url value='/edit?action=update&productCode=${product.ma}'/>">Sửa</a>
+                <a class="button" href="<c:url value='/delete?productCode=${product.ma}'/>">Xóa</a>
+            </td>
         </tr>
-        <!--        </th:each>-->
     </table>
 </div>
 

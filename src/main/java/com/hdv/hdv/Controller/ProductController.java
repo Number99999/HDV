@@ -25,9 +25,7 @@ public class ProductController {
     @GetMapping("showProduct")
         public String ProductshowALl(Model model) {
         List<Product> list =  this.productService.getAllProduct();
-        Product p = new Product();
-//        model.addAttribute("products", list);
-        model.addAttribute("products", p);
+        model.addAttribute("listProduct", this.productService.getAllProduct());
         return "product";
     }
 //    public Product showAll(){
