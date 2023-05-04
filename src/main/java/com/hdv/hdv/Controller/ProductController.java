@@ -5,26 +5,34 @@ import com.hdv.hdv.Service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/product")
 public class ProductController {
     @Autowired
     ProductService productService;
 
-
-    @GetMapping("/hello")
-    public String hello() {
-        return "this is my site";
+    @GetMapping(value = {"/home", "/"})
+    public String Home(Model model) {
+        return "home";
     }
 
     @GetMapping("showProduct")
-    public List<Product> ProductshowALl() {
-        return this.productService.getAllProduct();
+        public String ProductshowALl(Model model) {
+        List<Product> list =  this.productService.getAllProduct();
+        Product p = new Product();
+//        model.addAttribute("products", list);
+        model.addAttribute("products", p);
+        return "product";
     }
+//    public Product showAll(){
+//        return productService.getAllProduct().get(0);
+//    }
 
     @GetMapping("getproduct/{id}")
     public Product showProductById(@PathVariable int id) {
@@ -67,6 +75,7 @@ public class ProductController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating the product");
         }
     }
+
 
 
 }
