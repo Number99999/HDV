@@ -8,29 +8,27 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("/product")
+@RequestMapping("")
 public class ProductController {
     @Autowired
     ProductService productService;
 
-    @GetMapping(value = {"/home", "/"})
+    @GetMapping(value = {"/"})
     public String Home(Model model) {
         return "home";
     }
 
     @GetMapping("showProduct")
-        public String ProductshowALl(Model model) {
-        List<Product> list =  this.productService.getAllProduct();
+    public String ProductshowALl(Model model) {
+        List<Product> list = this.productService.getAllProduct();
         model.addAttribute("listProduct", this.productService.getAllProduct());
         return "product";
     }
-//    public Product showAll(){
-//        return productService.getAllProduct().get(0);
-//    }
 
     @GetMapping("getproduct/{id}")
     public Product showProductById(@PathVariable int id) {
@@ -42,16 +40,43 @@ public class ProductController {
         return this.productService.getProductByCategory(category);
     }
 
-    @DeleteMapping("delete/{id}")
-    public ResponseEntity<Long> deleteProduct(@PathVariable int id) {
+    @GetMapping("delete/{id}")
+    public String showDelete(@PathVariable int id, Model model) {
+        model.addAttribute("product", productService.getProductById(id));
+        return "delete";
+    }
+
+    @PostMapping("delete/{id}")
+    public String comfirmDelte(@PathVariable int id, RedirectAttributes redirectAttributes) {
         productService.deleteProductByID(id);
-        return ResponseEntity.ok().build();
+        return "redirect:/showProduct";
+    }
+
+    @GetMapping("add")
+    public String showFormAdd(Model model) {
+        model.addAttribute("product", new Product());
+        return "add";
     }
 
     @PostMapping("add")
-    public ResponseEntity<Product> addProduct(@RequestBody Product product) {
+    public String submitForm(@ModelAttribute Product product) {
+        int id = productService.getMaxId() + 1;
+        product.setId(id);
         this.productService.addProduct(product);
-        return new ResponseEntity<>(product, HttpStatus.CREATED);
+        return "redirect:/showProduct";
+    }
+
+    @GetMapping("update/{id}")
+    public String showFormUpdate(@PathVariable int id, Model model) {
+        model.addAttribute("product", productService.getProductById(id));
+        return "update";
+    }
+
+    @PostMapping("update/{id}")
+    public String comfirmUpdate(@PathVariable int id, @ModelAttribute Product product) {
+        product.setId(id);
+        this.productService.addProduct(product);
+        return "redirect:/showProduct";
     }
 
     @PutMapping("update/{id}")
@@ -73,7 +98,6 @@ public class ProductController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating the product");
         }
     }
-
 
 
 }

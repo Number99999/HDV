@@ -1,9 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-
-<html lang="en">
-    <head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
         <meta charset="UTF-8">
         <title>Thông tin mặt hàng</title>
         <style>
@@ -91,16 +87,16 @@
                         <input type="text" id="loai" name="loai" value="${loai != null ? loai : ""}" required>
                     </div>
                     <div class="form-group error-message">
-                        <c:if test="${error != null}">
+                        <th:if test="${error != null}">
                             <p>${error}</p>
-                        </c:if>
+                        </th:if>
                     </div>
                     <div class="form-group">
-                        <c:choose>
-                            <c:when test="${isUpdate}">
-                                <button type="submit" formaction="edit?action=update&productCode=${ma}">Cap nhat</button>
-                            </c:when>
-                            <c:otherwise>
+                        <th:choose>
+                            <th:when test="${isUpdate}">
+                                <button type="submit" formaction="edit?action=update&productCode=${ma}">Cập nhật</button>
+                            </th:when>
+                            <th:otherwise>
                                 <button style="width: fit-content;display: inline-block;
                                                 border-radius: 4px;
                                                 background-color: #f44336;
@@ -108,15 +104,15 @@
                                                 text-align: center;
                                                 padding: 8px;
                                                 margin: 4px 2px;
-                                                cursor: pointer;" type="submit" formaction="edit?action=create">Them mat hang</button>
-                            </c:otherwise>
-                        </c:choose>
+                                                cursor: pointer;" type="submit" formaction="edit?action=create">Thêm mặt hàng</button>
+                            </th:otherwise>
+                        </th:choose>
                     </div>
                 </form>
             </main>
             <div style="text-align: center;">                        
-                <a class="button" href="${pageContext.request.contextPath}/products">Quan ly mat hang</a>
-                <a class="button" href="${pageContext.request.contextPath}/index.jsp">Trang chu</a>
+                <a class="button" href="http://localhost:8080/showProduct">Quản lý mặt hàng</a>
+                <a class="button" href="http://localhost:8080/">Trang chủ</a>
             </div>
         </body>
     </html>

@@ -22,6 +22,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("select p.id, p.product_id, p.product_category, p.product_name, p.availability, p.price, p.image from Product p where p.product_category = :cate")
     List<Product> findProductByCategory(@Param("cate") String cate);
 
+    @Query("SELECT MAX(p.id) FROM Product p")
+    int getMaxIdProduct();
+
     @Modifying
     @Transactional
     @Query(value = "DELETE FROM Product WHERE id = :id")

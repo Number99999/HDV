@@ -7,24 +7,22 @@ import javax.persistence.*;
 public class Product {
 
     @Id
-    @GeneratedValue
+//    @GeneratedValue
     int id;
-
     String product_id;
     String product_category;
     String product_name;
-    String availability;
+    String availability = "Còn hàng";
     String price;
     String image;
 
     public Product() {
     }
 
-    public Product(String product_id, String product_category, String product_name, String availability, String price, String image) {
+    public Product(String product_id, String product_category, String product_name, String price, String image) {
         this.product_id = product_id;
         this.product_category = product_category;
         this.product_name = product_name;
-        this.availability = availability;
         this.price = price;
         this.image = image;
     }
@@ -83,5 +81,10 @@ public class Product {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    @Override
+    public String toString(){
+        return "" + product_category + product_name + product_id + price + image;
     }
 }

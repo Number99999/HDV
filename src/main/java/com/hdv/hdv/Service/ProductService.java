@@ -39,4 +39,9 @@ public class ProductService {
     {
         return productRepository.findProductByCategory(category);
     }
+
+    public int getMaxId()
+    {
+        return productRepository.getMaxIdProduct();
+    }
 }

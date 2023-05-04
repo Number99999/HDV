@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Quản lý sản phẩm</title>
     <style type="text/css">
@@ -59,13 +58,7 @@
         .button:hover {
             background-color: #d63028;
         }
-
-
-
-
-
     </style>
-
 </head>
 <body>
 <header>
@@ -79,30 +72,29 @@
             <th>Ảnh</th>
             <th>Tên mặt hàng</th>
             <th>Phân loại</th>
-            <th>Giá bán</th>
             <th>Tình trạng</th>
+            <th>Giá bán</th>
             <th>Thao tác</th>
         </tr>
         <tr th:each="product : ${listProduct}">
             <td th:text="${product.id}"></td>
             <td>
-                <img src="${product.image}" width="100" height="100">
-                ${product.image}
+                <img th:src="${product.image}" width="100" height="100">
             </td>
             <td th:text="${product.product_name}"></td>
             <td th:text="${product.product_category}"></td>
             <td th:text="${product.availability}"></td>
             <td th:text="${product.price}"></td>
             <td>
-                <a class="button" href="<c:url value='/edit?action=update&productCode=${product.ma}'/>">Sửa</a>
-                <a class="button" href="<c:url value='/delete?productCode=${product.ma}'/>">Xóa</a>
+                <a class="button" th:href="@{/update/{id}(id=${product.id})}">Sửa</a>
+                <a class="button" th:href="@{/delete/{id}(id=${product.id})}">Xóa</a>
             </td>
         </tr>
     </table>
 </div>
 
 <div style="margin-top: 20px; text-align: center;">
-    <a class="button" href="<c:url value='/edit?action=create'/>">Thêm mặt hàng</a>
-    <a class="button" href="${pageContext.request.contextPath}/index.jsp">Trang chủ</a>
+    <a class="button" href="add">Thêm mặt hàng</a>
+    <a class="button" href="/home">Trang chủ</a>
 </div>
 </body>
