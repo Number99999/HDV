@@ -7,11 +7,12 @@ import javax.persistence.*;
 public class Product {
 
     @Id
-//    @GeneratedValue
     int id;
     String product_id;
-    String product_category;
-    String product_name;
+    @Column(name = "product_category")
+    String category;
+    @Column(name = "product_name")
+    String name;
     String availability = "Còn hàng";
     String price;
     String image;
@@ -19,10 +20,11 @@ public class Product {
     public Product() {
     }
 
-    public Product(String product_id, String product_category, String product_name, String price, String image) {
+    public Product(String product_id, String product_category, String product_name,String availability, String price, String image) {
         this.product_id = product_id;
-        this.product_category = product_category;
-        this.product_name = product_name;
+        this.category = product_category;
+        this.name = product_name;
+        this.availability = availability;
         this.price = price;
         this.image = image;
     }
@@ -44,19 +46,19 @@ public class Product {
     }
 
     public String getProduct_category() {
-        return product_category;
+        return category;
     }
 
     public void setProduct_category(String product_category) {
-        this.product_category = product_category;
+        this.category = product_category;
     }
 
     public String getProduct_name() {
-        return product_name;
+        return name;
     }
 
     public void setProduct_name(String product_name) {
-        this.product_name = product_name;
+        this.name = product_name;
     }
 
     public String getAvailability() {
@@ -85,6 +87,6 @@ public class Product {
 
     @Override
     public String toString(){
-        return "" + product_category + product_name + product_id + price + image;
+        return "" + category + name + product_id + price + image;
     }
 }

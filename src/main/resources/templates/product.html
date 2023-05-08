@@ -58,6 +58,10 @@
         .button:hover {
             background-color: #d63028;
         }
+        .table-right {
+        float: right;
+    }
+}
     </style>
 </head>
 <body>
@@ -68,33 +72,47 @@
 <div class="container">
     <table id="table1">
         <tr>
-            <th>Mã mặt hàng</th>
-            <th>Ảnh</th>
-            <th>Tên mặt hàng</th>
-            <th>Phân loại</th>
-            <th>Tình trạng</th>
-            <th>Giá bán</th>
-            <th>Thao tác</th>
+            <th style="text-align: center" width="100px">Mã mặt hàng</th>
+            <th style="text-align: center">Ảnh</th>
+            <th style="text-align: center">Tên mặt hàng</th>
+            <th style="text-align: center">Phân loại</th>
+            <th style="text-align: center">Tình trạng</th>
+            <th style="text-align: center">Giá bán</th>
+            <th style="text-align: center">Thao tác</th>
+            <th style="text-align: center" width="100px">Tìm kiếm</th>
         </tr>
         <tr th:each="product : ${listProduct}">
-            <td th:text="${product.id}"></td>
+            <td th:text="${product.id}" style="text-align: center"></td>
             <td>
                 <img th:src="${product.image}" width="100" height="100">
             </td>
-            <td th:text="${product.product_name}"></td>
-            <td th:text="${product.product_category}"></td>
-            <td th:text="${product.availability}"></td>
-            <td th:text="${product.price}"></td>
+            <td th:text="${product.product_name}" style="text-align: center"></td>
+            <td width="100px" style="text-align: center">
+                <a class="button" th:text="${product.product_category}"
+                   th:href="@{/category/{cate}(cate=${product.product_category})}"></a>
+            </td>
+            <td th:text="${product.availability}" style="text-align: center"></td>
+            <td th:text="${product.price}" style="text-align: center"></td>
             <td>
                 <a class="button" th:href="@{/update/{id}(id=${product.id})}">Sửa</a>
                 <a class="button" th:href="@{/delete/{id}(id=${product.id})}">Xóa</a>
             </td>
+            <td><button class="button" type="button" onclick="window.location.href='/category/Nike'" style="text-align: center; width: 100px">Nike</button>
+                <button class="button" type="button" onclick="window.location.href='/category/Adidas'" style="text-align: center; width: 100px">Adidas</button>
+            </td>
         </tr>
     </table>
+    <table class="table-right">
+        <div style="margin-top: 20px; text-align: center;">
+            <a class="button" href="add">Thêm mặt hàng</a>
+            <a class="button" href="/">Trang chủ</a>
+        </div>
+    </table>
 </div>
-
-<div style="margin-top: 20px; text-align: center;">
-    <a class="button" href="add">Thêm mặt hàng</a>
-    <a class="button" href="/home">Trang chủ</a>
-</div>
+<!--<div style="margin-top: 20px; text-align: center;">-->
+<!--    <a class="button" href="/category/Nike">Nike</a>-->
+<!--    <a class="button" href="/category/Adidas">Adidas</a>-->
+<!--    <a class="button" href="add">Thêm mặt hàng</a>-->
+<!--    <a class="button" href="/">Trang chủ</a>-->
+<!--</div>-->
 </body>

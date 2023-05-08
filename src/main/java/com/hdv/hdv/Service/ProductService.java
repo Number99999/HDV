@@ -26,12 +26,11 @@ public class ProductService {
 
     public void deleteProductByID(int id) {
         productRepository.deleteProductById(id);
-//        productRepository.deleteById(Long.parseLong(id));
     }
 
 
     public Product getProductByName(String name) {
-        return productRepository.findProductByProduct_name(name);
+        return productRepository.findProductByName(name);
     }
 
 

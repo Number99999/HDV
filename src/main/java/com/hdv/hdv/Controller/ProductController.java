@@ -25,7 +25,6 @@ public class ProductController {
 
     @GetMapping("showProduct")
     public String ProductshowALl(Model model) {
-        List<Product> list = this.productService.getAllProduct();
         model.addAttribute("listProduct", this.productService.getAllProduct());
         return "product";
     }
@@ -35,10 +34,17 @@ public class ProductController {
         return this.productService.getProductById(id);
     }
 
-    @GetMapping("showProductByCate/{category}")
-    public List<Product> showProductByCate(@PathVariable String category) {
-        return this.productService.getProductByCategory(category);
+    @GetMapping("category/{cate}")
+    public String showProductByCate(@PathVariable String cate, Model model)
+    {
+        model.addAttribute("listProduct", productService.getProductByCategory(cate));
+        return "product";
     }
+//    @PostMapping("category/{cate}")
+//    public String showProductByCate(@PathVariable String cate, Model model) {
+//        model.addAttribute("listProduct", productService.getProductByCategory(cate));
+//        return "product";
+//    }
 
     @GetMapping("delete/{id}")
     public String showDelete(@PathVariable int id, Model model) {
@@ -75,28 +81,10 @@ public class ProductController {
     @PostMapping("update/{id}")
     public String comfirmUpdate(@PathVariable int id, @ModelAttribute Product product) {
         product.setId(id);
+        String img = product.getImage().replace(",", "");
+        product.setImage(img);
         this.productService.addProduct(product);
         return "redirect:/showProduct";
-    }
-
-    @PutMapping("update/{id}")
-    public ResponseEntity<String> updateProduct(@PathVariable("id") int id, @RequestBody Product product) {
-        try {
-            Product oldPro = this.productService.getProductById(id);
-            oldPro.setId(product.getId());
-            oldPro.setAvailability(product.getAvailability());
-            oldPro.setProduct_id(product.getProduct_id());
-            oldPro.setProduct_name(product.getProduct_name());
-            oldPro.setProduct_category(product.getProduct_category());
-            oldPro.setPrice(product.getPrice());
-            oldPro.setImage(product.getImage());
-
-            this.productService.deleteProductByID(product.getId());
-            this.productService.addProduct(product);
-            return ResponseEntity.ok("Updated successfully");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating the product");
-        }
     }
 
 
