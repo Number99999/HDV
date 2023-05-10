@@ -2,21 +2,23 @@ package com.hdv.hdv.Controller;
 
 import com.hdv.hdv.Entity.Product;
 import com.hdv.hdv.Service.ProductService;
+import com.hdv.hdv.Service.UploadImgurByByte;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
+import java.io.IOException;
 
 @Controller
 @RequestMapping("")
 public class ProductController {
     @Autowired
     ProductService productService;
+    @Autowired
+    UploadImgurByByte uploadImgurByByte;
 
     @GetMapping(value = {"/"})
     public String Home(Model model) {
@@ -60,14 +62,22 @@ public class ProductController {
 
     @GetMapping("add")
     public String showFormAdd(Model model) {
+
         model.addAttribute("product", new Product());
         return "add";
     }
 
     @PostMapping("add")
-    public String submitForm(@ModelAttribute Product product) {
+    public String submitForm(@ModelAttribute Product product, @RequestParam("imagee") MultipartFile imageFile) throws IOException {
         int id = productService.getMaxId() + 1;
+        String img = "";
+        if(imageFile.isEmpty()==false)
+        {
+            byte[] imageData = imageFile.getBytes();
+            img = uploadImgurByByte.getLink(imageData);
+        }
         product.setId(id);
+        product.setImage(img);
         this.productService.addProduct(product);
         return "redirect:/showProduct";
     }
@@ -79,13 +89,16 @@ public class ProductController {
     }
 
     @PostMapping("update/{id}")
-    public String comfirmUpdate(@PathVariable int id, @ModelAttribute Product product) {
+    public String comfirmUpdate(@PathVariable int id, @ModelAttribute Product product, @RequestParam("imagee") MultipartFile imageFile) throws IOException {
         product.setId(id);
         String img = product.getImage().replace(",", "");
+        if(imageFile.isEmpty()==false)
+        {
+            byte[] imageData = imageFile.getBytes();
+            img = uploadImgurByByte.getLink(imageData);
+        }
         product.setImage(img);
         this.productService.addProduct(product);
         return "redirect:/showProduct";
     }
-
-
 }

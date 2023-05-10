@@ -64,7 +64,7 @@
             <h1>Thêm mặt hàng</h1>
         </header>
         <main>
-            <form th:action="add" method="post" th:object="${product}" class="product-form">
+            <form th:action="add" method="post" th:object="${product}" class="product-form" enctype="multipart/form-data">
                 <div class="form-group">
                     <label>Mã mặt hàng:</label>
                     <input type="text" th:field="*{product_id}" required>
@@ -82,8 +82,8 @@
                     <input type="text" th:field="*{price}" required>
                 </div>
                 <div class="form-group">
-                    <label for="image">Chọn ảnh:</label>
-                    <input type="file" id="image" name="image">
+                    <label for="imagee">Chọn ảnh:</label>
+                    <input type="file" id="imagee" name="imagee">
                 </div>
                 <div class="form-group">
                     <button style="width: fit-content;display: inline-block;

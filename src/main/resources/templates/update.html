@@ -58,6 +58,7 @@
                 margin-bottom
 
 
+
     </style>
 </head>
 
@@ -67,6 +68,7 @@
 </header>
 <main>
     <form th:action="@{/update/{id}(id=${product.product_id})}" method="post" th:object="${product}"
+          enctype="multipart/form-data"
           class="product-form">
         <div class="form-group">
             <label>Mã mặt hàng:</label>
@@ -87,8 +89,10 @@
         <div class="form-group">
             <img th:src="${product.image}" width="100" height="100">
             <input type="text" th:field="*{image}" required>
-            <label for="image">Chọn ảnh:</label>
-            <input type="file" id="image" name="image">
+        </div>
+        <div>
+            <label for="imagee">Chọn ảnh:</label>
+            <input type="file" id="imagee" name="imagee">
         </div>
         <div class="form-group">
             <button style="width: fit-content;display: inline-block;
